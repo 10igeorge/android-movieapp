@@ -21,7 +21,7 @@ public class Movie {
        this.mTitle = title;
        this.mOverview = overview;
        this.mCast = cast;
-       this.mImageUrl = imageUrl;
+       this.mImageUrl = "http://image.tmdb.org/t/p/w500" + imageUrl;
        this.mGenre = genre;
         this.mRating = rating;
        this.mYear = year;

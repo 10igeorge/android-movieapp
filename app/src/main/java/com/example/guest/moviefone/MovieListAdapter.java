@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -49,6 +51,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         @Bind(R.id.rating) TextView mRating;
         @Bind(R.id.genre) TextView mGenre;
         @Bind(R.id.year) TextView mYear;
+        @Bind(R.id.poster) ImageView mPoster;
         private Context mContext;
 
         public MovieViewHolder(View itemView) {
@@ -58,6 +61,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         }
 
         public void bindMovie(Movie movie) {
+            Picasso.with(mContext).load(movie.getImageUrl()).into(mPoster);
             mTitle.setText(movie.getTitle());
             mRating.setText("Rating: " + movie.getRating() + "/10");
             mYear.setText(movie.getYear());
