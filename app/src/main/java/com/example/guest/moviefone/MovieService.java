@@ -3,12 +3,23 @@ package com.example.guest.moviefone;
 import android.util.Log;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.ResponseCache;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by Guest on 4/27/16.
@@ -22,13 +33,51 @@ public class MovieService {
         urlBuilder.addQueryParameter(Constants.MOVIE_TITLE_QUERY, title);
         urlBuilder.addQueryParameter(Constants.MOVIE_DB_QUERY_PARAMETER, CONSUMER_KEY);
         String url = urlBuilder.build().toString();
-        Log.v("url", url);
 
         Request request = new Request.Builder().url(url).build();
 
         Call call = client.newCall(request);
         call.enqueue(callback);
+    }
+
+    public ArrayList<Movie> processResults(Response response){
+        ArrayList<Movie> movies = new ArrayList<>();
+
+        try{
+            String jsonData = response.body().string();
+            if(response.isSuccessful()){
+                JSONObject resultsJSON = new JSONObject(jsonData);
+                JSONArray moviesJSON = resultsJSON.getJSONArray("results");
+                for(int i=0; i < moviesJSON.length(); i++){
+                    JSONObject movieJSON = moviesJSON.getJSONObject(i);
+                    String title = movieJSON.getString("title");
+                    String year = movieJSON.getString("release_date");
+//                    String genre = movieJSON.getJSONArray("genre_ids").getString(1);
+                    double rating = movieJSON.getDouble("vote_average");
+                    String overview = movieJSON.getString("overview");
+                    String imageURL = movieJSON.getString("poster_path");
+                    DateFormat formatter = new SimpleDateFormat("y");
+                    String dateString = "";
+                    try{
+                        Date date = formatter.parse(year);
+                        dateString = formatter.format(date);
+                    } catch (Exception e){
+                        Log.d("no", "no");
+                    }
+                    Log.d("log", dateString);
+                    Movie movie = new Movie(title,overview, "cast", imageURL, "hey",rating, dateString);
+                    movies.add(movie);
 
 
+                }
+            }
+        }
+
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+        } return movies;
     }
 }

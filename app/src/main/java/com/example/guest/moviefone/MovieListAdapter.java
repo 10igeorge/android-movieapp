@@ -43,10 +43,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.poster) ImageView mPoster;
-        @Bind(R.id.title) TextView mTitle;
+//        @Bind(R.id.poster) ImageView mPoster;
+        @Bind(R.id.movieTitle) TextView mTitle;
         @Bind(R.id.rating) TextView mRating;
         @Bind(R.id.genre) TextView mGenre;
+        @Bind(R.id.year) TextView mYear;
         private Context mContext;
 
         public MovieViewHolder(View itemView) {
@@ -57,8 +58,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
         public void bindMovie(Movie movie) {
             mTitle.setText(movie.getTitle());
-            mGenre.setText(movie.getGenres().get(0));
+            mGenre.setText(movie.getGenre());
             mRating.setText("Rating: " + movie.getRating() + "/10");
+            mYear.setText("("+movie.getYear()+")");
         }
     }
 
