@@ -19,8 +19,10 @@ public class MovieService {
         OkHttpClient client = new OkHttpClient.Builder().build();
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.MOVIE_DB_BASE_URL).newBuilder();
+        urlBuilder.addQueryParameter(Constants.MOVIE_TITLE_QUERY, title);
         urlBuilder.addQueryParameter(Constants.MOVIE_DB_QUERY_PARAMETER, CONSUMER_KEY);
         String url = urlBuilder.build().toString();
+        Log.v("url", url);
 
         Request request = new Request.Builder().url(url).build();
 
