@@ -34,9 +34,16 @@ public class MovieService {
         urlBuilder.addQueryParameter(Constants.MOVIE_DB_QUERY_PARAMETER, CONSUMER_KEY);
         String url = urlBuilder.build().toString();
 
+        HttpUrl.Builder genreUrlBuilder = HttpUrl.parse(Constants.MOVIE_DB_GENRE_URL).newBuilder();
+        genreUrlBuilder.addQueryParameter(Constants.MOVIE_DB_QUERY_PARAMETER, CONSUMER_KEY);
+        String genreUrl = genreUrlBuilder.build().toString();
+
         Request request = new Request.Builder().url(url).build();
+        Request genreRequest = new Request.Builder().url(genreUrl).build();
 
         Call call = client.newCall(request);
+        Call genreCall = client.newCall(genreRequest);
+        genreCall.enqueue(callback);
         call.enqueue(callback);
     }
 
@@ -52,7 +59,10 @@ public class MovieService {
                     JSONObject movieJSON = moviesJSON.getJSONObject(i);
                     String title = movieJSON.getString("title");
                     String year = movieJSON.getString("release_date");
-//                    String genre = movieJSON.getJSONArray("genre_ids").getString(1);
+
+
+
+                    String genre = movieJSON.getJSONArray("genre_ids").getString(0);
                     double rating = movieJSON.getDouble("vote_average");
                     String overview = movieJSON.getString("overview");
                     String imageURL = movieJSON.getString("poster_path");
@@ -65,7 +75,7 @@ public class MovieService {
                         Log.d("no", "no");
                     }
                     Log.d("log", dateString);
-                    Movie movie = new Movie(title,overview, "cast", imageURL, "hey",rating, dateString);
+                    Movie movie = new Movie(title,overview, "cast", imageURL, genre,rating, dateString);
                     movies.add(movie);
 
 

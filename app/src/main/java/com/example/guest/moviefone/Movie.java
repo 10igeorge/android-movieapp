@@ -32,7 +32,7 @@ public class Movie {
     }
 
     public String getYear(){
-        return mYear;
+        return "("+mYear+")";
     }
     public String getOverview() {
         return mOverview;

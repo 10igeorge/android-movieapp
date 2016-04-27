@@ -37,6 +37,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         holder.bindMovie(mMovies.get(position));
     }
 
+
     @Override
     public int getItemCount() {
         return mMovies.size();
@@ -58,9 +59,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
         public void bindMovie(Movie movie) {
             mTitle.setText(movie.getTitle());
-            mGenre.setText(movie.getGenre());
             mRating.setText("Rating: " + movie.getRating() + "/10");
-            mYear.setText("("+movie.getYear()+")");
+            mYear.setText(movie.getYear());
         }
     }
 

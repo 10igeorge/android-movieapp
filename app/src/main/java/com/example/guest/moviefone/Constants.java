@@ -7,6 +7,7 @@ public class Constants {
     public static final String MOVIE_DATABASE_KEY = BuildConfig.MOVIE_DATABASE_KEY;
 
     public static final String MOVIE_DB_BASE_URL = "http://api.themoviedb.org/3/search/movie";
+    public static final String MOVIE_DB_GENRE_URL = "http://api.themoviedb.org/3/genre/movie/list";
     public static final String MOVIE_DB_QUERY_PARAMETER = "api_key";
     public static final String MOVIE_TITLE_QUERY = "query";
 
