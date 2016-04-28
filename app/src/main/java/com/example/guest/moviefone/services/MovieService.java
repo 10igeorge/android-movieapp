@@ -1,14 +1,16 @@
-package com.example.guest.moviefone;
+package com.example.guest.moviefone.services;
 
 import android.util.Log;
 
+
+import com.example.guest.moviefone.Constants;
+import com.example.guest.moviefone.models.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.ResponseCache;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

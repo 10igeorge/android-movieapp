@@ -1,12 +1,12 @@
-package com.example.guest.moviefone;
+package com.example.guest.moviefone.models;
 
+
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Created by Guest on 4/27/16.
- */
+@Parcel
 public class Movie {
     private String mTitle;
     private String mOverview;
@@ -15,6 +15,8 @@ public class Movie {
     private String mImageUrl;
     private double mRating;
     private String mGenre;
+
+    public Movie() {}
 
 
     public Movie(String title, String overview, String cast, String imageUrl, String genre, double rating, String year){

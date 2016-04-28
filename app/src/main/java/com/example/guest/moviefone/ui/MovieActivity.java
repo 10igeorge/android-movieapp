@@ -1,14 +1,17 @@
-package com.example.guest.moviefone;
+package com.example.guest.moviefone.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
+import com.example.guest.moviefone.services.MovieService;
+import com.example.guest.moviefone.R;
+import com.example.guest.moviefone.adapters.MovieListAdapter;
+import com.example.guest.moviefone.models.Movie;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import butterknife.Bind;

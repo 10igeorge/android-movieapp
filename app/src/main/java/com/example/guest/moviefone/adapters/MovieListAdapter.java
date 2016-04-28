@@ -1,6 +1,7 @@
-package com.example.guest.moviefone;
+package com.example.guest.moviefone.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.guest.moviefone.R;
+import com.example.guest.moviefone.models.Movie;
+import com.example.guest.moviefone.ui.MovieDetailActivity;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -56,8 +62,18 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
         public MovieViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
+            ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                    public void onClick (View v) {
+                    int itemPosition = getLayoutPosition();
+                    Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                    intent.putExtra("position", itemPosition + "");
+                    intent.putExtra("movies", Parcels.wrap(mMovies));
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         public void bindMovie(Movie movie) {
