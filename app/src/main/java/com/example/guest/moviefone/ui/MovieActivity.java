@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.guest.moviefone.services.MovieService;
 import com.example.guest.moviefone.R;
@@ -34,6 +35,7 @@ public class MovieActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
         getMovies(title);
+
     }
 
     private void getMovies(String title) {
@@ -49,9 +51,15 @@ public class MovieActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) {
                 mMovies = movieService.processResults(response);
 
+                for (int i=0; i<mMovies.size(); i++){
+                    Log.v("response", ""+mMovies);
+                    mMovies.get(i).getId();
+                    Log.v("tag", ""+mMovies.get(i).getId());
+                }
                 MovieActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         mAdapter = new MovieListAdapter(getApplicationContext(), mMovies);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MovieActivity.this);

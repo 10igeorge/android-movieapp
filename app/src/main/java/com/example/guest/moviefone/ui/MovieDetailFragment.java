@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,17 +22,17 @@ import butterknife.ButterKnife;
 
 public class MovieDetailFragment extends Fragment {
     @Bind(R.id.movieImageView) ImageView mImageLabel;
-    @Bind(R.id.movieEditText) TextView mTitleLabel;
+    @Bind(R.id.movieTitleTextView) TextView mTitleLabel;
     @Bind(R.id.genreTextView) TextView mGenresLabel;
     @Bind(R.id.ratingTextView) TextView mRatingsLabel;
     @Bind(R.id.overviewTextView) TextView mOverviewLabel;
     @Bind(R.id.directorTextView) TextView mDirectorLabel;
     @Bind(R.id.castTextView) TextView mCastLabel;
-    @Bind(R.id.saveMovieButton) TextView mSaveMovieButton;
+    @Bind(R.id.saveMovieButton) Button mSaveMovieButton;
 
     private Movie mMovie;
 
-    public MovieDetailFragment newInstance(Movie movie) {
+    public static MovieDetailFragment newInstance(Movie movie) {
         MovieDetailFragment movieDetailFragment = new MovieDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable("movie", Parcels.wrap(movie));

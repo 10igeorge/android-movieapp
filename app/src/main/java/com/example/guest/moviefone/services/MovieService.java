@@ -28,27 +28,32 @@ import okhttp3.Response;
  */
 public class MovieService {
     public static void findMovies(String title, Callback callback){
-        String CONSUMER_KEY = Constants.MOVIE_DATABASE_KEY;
         OkHttpClient client = new OkHttpClient.Builder().build();
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.MOVIE_DB_BASE_URL).newBuilder();
         urlBuilder.addQueryParameter(Constants.MOVIE_TITLE_QUERY, title);
-        urlBuilder.addQueryParameter(Constants.MOVIE_DB_QUERY_PARAMETER, CONSUMER_KEY);
+        urlBuilder.addQueryParameter(Constants.MOVIE_DB_QUERY_PARAMETER, Constants.MOVIE_DATABASE_KEY);
+
         String url = urlBuilder.build().toString();
 
-        HttpUrl.Builder genreUrlBuilder = HttpUrl.parse(Constants.MOVIE_DB_GENRE_URL).newBuilder();
-        genreUrlBuilder.addQueryParameter(Constants.MOVIE_DB_QUERY_PARAMETER, CONSUMER_KEY);
-        String genreUrl = genreUrlBuilder.build().toString();
-
         Request request = new Request.Builder().url(url).build();
-        Request genreRequest = new Request.Builder().url(genreUrl).build();
 
         Call call = client.newCall(request);
-        Call genreCall = client.newCall(genreRequest);
-        genreCall.enqueue(callback);
         call.enqueue(callback);
     }
 
+    public static void findMovieDetails(int movieId, Callback callback){
+        OkHttpClient client = new OkHttpClient.Builder().build();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.MOVIE_INFO_BASE_URL).newBuilder();
+        urlBuilder.addPathSegment(""+movieId);
+        String url = urlBuilder.build().toString();
+
+        Request request = new Request.Builder().url(url).build();
+
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+
+    }
     public ArrayList<Movie> processResults(Response response){
         ArrayList<Movie> movies = new ArrayList<>();
 
@@ -61,9 +66,7 @@ public class MovieService {
                     JSONObject movieJSON = moviesJSON.getJSONObject(i);
                     String title = movieJSON.getString("title");
                     String year = movieJSON.getString("release_date");
-
-
-
+                    int id = movieJSON.getInt("id");
                     String genre = movieJSON.getJSONArray("genre_ids").getString(0);
                     double rating = movieJSON.getDouble("vote_average");
                     String overview = movieJSON.getString("overview");
@@ -77,7 +80,7 @@ public class MovieService {
                         Log.d("no", "no");
                     }
                     Log.d("log", dateString);
-                    Movie movie = new Movie(title,overview, "cast", imageURL, genre,rating, dateString);
+                    Movie movie = new Movie(id,title,overview, "cast", imageURL, genre,rating, dateString);
                     movies.add(movie);
 
 

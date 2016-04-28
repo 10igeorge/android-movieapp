@@ -15,11 +15,12 @@ public class Movie {
     private String mImageUrl;
     private double mRating;
     private String mGenre;
+    private static int mId;
 
     public Movie() {}
 
 
-    public Movie(String title, String overview, String cast, String imageUrl, String genre, double rating, String year){
+    public Movie(int id, String title, String overview, String cast, String imageUrl, String genre, double rating, String year){
        this.mTitle = title;
        this.mOverview = overview;
        this.mCast = cast;
@@ -27,6 +28,7 @@ public class Movie {
        this.mGenre = genre;
         this.mRating = rating;
        this.mYear = year;
+        this.mId = id;
     }
 
     public String getTitle() {
@@ -51,4 +53,8 @@ public class Movie {
     public String getGenre() {
         return mGenre;
     }
+    public static int getId() {
+        return mId;
+    }
+
 }
